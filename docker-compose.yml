@@ -1,0 +1,121 @@
+version: "2.4"
+services:
+  postfix:
+    image: yorkshirekev/postfix
+    restart: unless-stopped
+    ports:
+      - "24:25"
+    command: psconfig.opensciencegrid.org
+    networks:
+      - pwa
+
+  mongo:
+    image: mongo:4.2-bionic
+    restart: unless-stopped
+    volumes:
+      - /usr/local/data/mongo:/data/db
+    networks:
+      - pwa
+
+  sls:
+    image: soichih/sls
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    volumes:
+      - /etc/gocdb2sls/sls:/etc/lookup-service:ro
+    ports:
+      - "5672:5672"
+      - "8090:8090"
+    networks:
+      - pwa
+
+  gocdb2sls:
+    image: soichih/gocdb2sls
+    restart: unless-stopped
+    depends_on:
+      - sls
+    volumes:
+      - /etc/gocdb2sls:/app/config:ro
+      - /usr/local/gocdb2sls-cache:/cache
+      - /etc/grid-security/user:/etc/grid-security/user:ro
+    networks:
+      - pwa
+
+  sca-auth:
+    image: perfsonar/sca-auth
+    restart: unless-stopped
+    volumes:
+      - /etc/pwa/auth:/app/api/config
+      - /usr/local/data/auth:/db
+    networks:
+      - pwa
+
+  pwa-admin1:
+    image: perfsonar/pwa-admin:4.3.2
+    restart: unless-stopped
+    volumes:
+      - /etc/pwa:/app/api/config:ro
+    networks:
+      - pwa
+
+  pwa-pub1:
+    image: perfsonar/pwa-pub:4.3.2
+    restart: unless-stopped
+    volumes:
+      - /etc/pwa:/app/api/config:ro
+    networks:
+      - pwa
+
+  pwa-pub2:
+    image: perfsonar/pwa-pub:4.3.2
+    restart: unless-stopped
+    volumes:
+      - /etc/pwa:/app/api/config:ro
+    networks:
+      - pwa
+
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    volumes:
+      - /etc/pwa/shared:/shared:ro
+      - /etc/pwa/nginx:/etc/nginx:ro
+      - /etc/pwa/nginx/certs:/certs:ro
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9443:9443"
+    networks:
+      - pwa
+
+  # https://github.com/robbertkl/docker-ipv6nat
+  # https://github.com/moby/libnetwork/pull/2572 (Someday!)
+  ipv6nat:
+    container_name: ipv6nat
+    restart: unless-stopped
+    image: robbertkl/ipv6nat
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /lib/modules:/lib/modules:ro
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_MODULE
+    network_mode: "host"
+    command: --retry --cleanup --debug
+    depends_on:
+      - nginx
+      - postfix
+      - sls
+
+networks:
+  pwa:
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        # ULA generator: https://www.ultratools.com/tools/rangeGenerator
+        - subnet: "fd03:8c8b:0f73:bfc8::/64"
