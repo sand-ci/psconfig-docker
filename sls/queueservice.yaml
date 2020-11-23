@@ -1,0 +1,6 @@
+queue:
+    queueservice: 'off'
+
+message:
+    persistent: false
+    ttl: 120

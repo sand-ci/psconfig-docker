@@ -1,0 +1,19 @@
+#Lookup Service settings
+lookupservice:
+    host: '0.0.0.0'
+    port: 8090
+    lease:
+        max: 2592000
+        default: 3600
+        min: 1800
+    coreservice: 'on'
+    cacheservice: 'off'
+
+#Database settings
+database:
+    DBUrl: 'mongo'
+    DBPort: 27017
+    DBName: 'LookupService'
+    DBCollName: 'services'
+    pruneInterval: 1800
+    pruneThreshold: 120

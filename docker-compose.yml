@@ -23,7 +23,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - /etc/gocdb2sls/sls:/etc/lookup-service:ro
+      - ./sls:/etc/lookup-service:ro
     ports:
       - "5672:5672"
       - "8090:8090"
@@ -36,7 +36,7 @@ services:
     depends_on:
       - sls
     volumes:
-      - /etc/gocdb2sls:/app/config:ro
+      - ./gocdb2sls:/app/config:ro
       - /usr/local/gocdb2sls-cache:/cache
       - /etc/grid-security/user:/etc/grid-security/user:ro
     networks:
@@ -46,7 +46,7 @@ services:
     image: perfsonar/sca-auth
     restart: unless-stopped
     volumes:
-      - /etc/pwa/auth:/app/api/config
+      - ./pwa/auth:/app/api/config
       - /usr/local/data/auth:/db
     networks:
       - pwa
@@ -55,7 +55,7 @@ services:
     image: perfsonar/pwa-admin:4.3.2
     restart: unless-stopped
     volumes:
-      - /etc/pwa:/app/api/config:ro
+      - ./pwa:/app/api/config:ro
     networks:
       - pwa
 
@@ -63,7 +63,7 @@ services:
     image: perfsonar/pwa-pub:4.3.2
     restart: unless-stopped
     volumes:
-      - /etc/pwa:/app/api/config:ro
+      - ./pwa:/app/api/config:ro
     networks:
       - pwa
 
@@ -71,7 +71,7 @@ services:
     image: perfsonar/pwa-pub:4.3.2
     restart: unless-stopped
     volumes:
-      - /etc/pwa:/app/api/config:ro
+      - ./pwa:/app/api/config:ro
     networks:
       - pwa
 
@@ -79,9 +79,9 @@ services:
     image: nginx
     restart: unless-stopped
     volumes:
-      - /etc/pwa/shared:/shared:ro
-      - /etc/pwa/nginx:/etc/nginx:ro
-      - /etc/pwa/nginx/certs:/certs:ro
+      - ./pwa-shared:/shared:ro
+      - ./nginx:/etc/nginx:ro
+      - ./nginx/certs:/certs:ro
     ports:
       - "80:80"
       - "443:443"
