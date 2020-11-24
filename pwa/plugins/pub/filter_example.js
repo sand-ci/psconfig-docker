@@ -67,7 +67,7 @@ exports.process = function( request, psconfig_in, results_callback ) {
             var requesting_domains = hostnames.map(getDomain);
             if (requesting_domains.indexOf(requested_domain) > -1) {
                 var token = generateJWT(requested_host);
-                var final_url = "amqps://" + requested_host + ":" + token + "@clever-turkey.rmq.cloudamqp.com/ps-push";
+                var final_url = "amqps://" + requested_host + ":" + token + "@clever-turkey.rmq.cloudamqp.com/osg-nma";
                 for (const archive_name in psconfig_in.archives) {
                     archive = psconfig_in.archives[archive_name];
                     if (archive.archiver == "rabbitmq") {
