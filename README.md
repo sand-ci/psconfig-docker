@@ -22,3 +22,4 @@ Docker Compose configuration for Open Science Grid's perfSONAR pSConfig service
 * /etc/grid-security/user
 * /usr/local/data/auth
 * /usr/local/data/mongo
+* /usr/local/gocdb2sls-cache
