@@ -16,6 +16,8 @@ Docker Compose configuration for Open Science Grid's perfSONAR pSConfig service
     - auth.pub
     - oidc-client_id.key
     - oidc-client_secret.key
+* pwa/plugins/pub
+    - rabbit-private.pem
 
 ### External data
 
