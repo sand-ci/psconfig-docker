@@ -143,25 +143,35 @@ exports.datasource = {
             activehosts_url: 'http://ps1.es.net:8096/lookup/activehosts.json',
             query: '?type=service',
         },
-/*
         "test": {
             label: 'test',
             type: 'global-sls',
             activehosts_url: 'http://ps1.es.net:8096/lookup/activehosts.json',
             query: '?type=service&group-communities=pS-Testbed&group-communities-operator=any',
         },
-*/
-	"geant": {
+        "geant": {
             label: 'GEANT',
             type: 'global-sls',
             activehosts_url: 'http://ps1.es.net:8096/lookup/activehosts.json',
             query: '?type=service&group-communities=GEANT',
         },
-	"slate": {
+        "slate": {
             label: 'SLATE',
             type: 'global-sls',
             activehosts_url: 'http://ps1.es.net:8096/lookup/activehosts.json',
             query: '?type=service&group-communities=SLATE',
+        },
+        "lhcopn": {
+            label: 'LHCOPN',
+            type: 'global-sls',
+            activehosts_url: 'http://ps1.es.net:8096/lookup/activehosts.json',
+            query: '?type=service&group-communities=*LHCOPN,*lhcopn&group-communities-operator=any',
+        },
+        "lhcone": {
+            label: 'LHCONE',
+            type: 'global-sls',
+            activehosts_url: 'http://ps1.es.net:8096/lookup/activehosts.json',
+            query: '?type=service&group-communities=*LHCONE,*lhcone&group-communities-operator=any',
         },
         // Private sLS instance
         // only uncomment this if you are running a private sLS instance
@@ -191,8 +201,7 @@ exports.admin = {
 exports.pub = {
     host: "::",
     port: 8080,
-    //default_config_format: "psconfig",
-    url: 'http://psconfig-itb.opensciencegrid.org/pub/',
+    url: 'http://psconfig.opensciencegrid.org/pub/',
 };
 
 exports.pub.plugins = {
@@ -200,7 +209,6 @@ exports.pub.plugins = {
     //plugin_scripts: [ '/etc/pwa/plugins/pub/filter_example.js' ]
     scripts: [ '/app/api/config/plugins/pub/filter_example.js' ]
 };
-
 
 exports.common = {
     //needed to access auth service to pull profile

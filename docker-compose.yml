@@ -75,6 +75,22 @@ services:
     networks:
       - pwa
 
+  pwa-pub3:
+    image: perfsonar/pwa-pub:4.3.2
+    restart: unless-stopped
+    volumes:
+      - ./pwa:/app/api/config:ro
+    networks:
+      - pwa
+
+  pwa-pub4:
+    image: perfsonar/pwa-pub:4.3.2
+    restart: unless-stopped
+    volumes:
+      - ./pwa:/app/api/config:ro
+    networks:
+      - pwa
+
   nginx:
     image: nginx
     restart: unless-stopped

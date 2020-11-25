@@ -13,7 +13,7 @@ exports.auth = {
     },
 
     //isser to use for generated jwt token
-    iss: "https://psconfig-itb.opensciencegrid.org/auth",
+    iss: "https://psconfig.opensciencegrid.org/auth",
     //ttl for jwt
     ttl: 24*3600*1000, //1 day
 
@@ -29,7 +29,7 @@ exports.auth = {
 //comment this out if you don't want to confirm email
 exports.email_confirmation = {
     subject: 'pSConfig Web Admin Account Confirmation',
-    from: 'pwa@psconfig-itb.opensciencegrid.org',  //most mail server will reject if this is not replyable address
+    from: 'pwa@psconfig.opensciencegrid.org',  //most mail server will reject if this is not replyable address
 };
 
 //for local user/pass login (you should use either local, or ldap - but not both)
@@ -40,11 +40,11 @@ exports.local = {
     //comment this out if you don't want to confirm email
     email_confirmation: {
 	    subject: 'pSConfig Web Admin Account Confirmation',
-	    from: 'pwa@psconfig-itb.opensciencegrid.org',  //most mail server will reject if this is not replyable address
+	    from: 'pwa@psconfig.opensciencegrid.org',  //most mail server will reject if this is not replyable address
     },
     email_passreset: {
 	    subject: 'pSConfig Web Admin Password Reset',
-	    from: 'pwa@psconfig-itb.opensciencegrid.org',  //most mail server will reject if this is not replyable address
+	    from: 'pwa@psconfig.opensciencegrid.org',  //most mail server will reject if this is not replyable address
     },
     mailer: {
         host: 'postfix',
@@ -69,7 +69,7 @@ exports.oidc = {
     token_url: "https://cilogon.org/oauth2/token",
     userinfo_url: "https://cilogon.org/oauth2/userinfo", //specific to openid connect
 
-    callback_url: "https://psconfig-itb.opensciencegrid.org/api/auth/oidc/callback",
+    callback_url: "https://psconfig.opensciencegrid.org/api/auth/oidc/callback",
     scope: "openid profile email org.cilogon.userinfo",
 
     client_id: fs.readFileSync(__dirname+'/oidc-client_id.key'),
