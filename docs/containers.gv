@@ -1,0 +1,26 @@
+digraph {
+  graph [bgcolor="#ffffff" pad=0.5 ratio="fill", rankdir=LR]
+  "postfix" [shape="component"]
+  "mongo" [shape="component"]
+  "sls" [shape="component"]
+  "gocdb2sls" [shape="component"]
+  "sca-auth" [shape="component"]
+  "pwa-admin1" [shape="component"]
+  "pwa-pub1" [shape="component", label="pwa-pub[1-4]"]
+  "nginx" [shape="component"]
+  80 [shape="circle", width=0.8]
+  443 [shape="circle", width=0.8]
+  9443 [shape="circle", width=0.8]
+  "sls" -> "mongo"
+  "pwa-admin1" -> "postfix"
+  "pwa-pub1" -> "mongo"
+  "pwa-admin1" -> "mongo"
+  "pwa-admin1" -> "sca-auth" [style="dotted"]
+  "gocdb2sls" -> "sls"
+  "nginx" -> "pwa-pub1"
+  "nginx" -> "pwa-admin1"
+  "nginx" -> "sca-auth"
+  80 -> "nginx"
+  443 -> "nginx"
+  9443 -> "nginx"
+}
