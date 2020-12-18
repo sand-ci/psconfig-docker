@@ -10,16 +10,20 @@ function generateJWT(host) {
     // Load the private key
     var privateKey = fs.readFileSync(__dirname + '/rabbit-private.pem');
 
+    var exp = Math.floor(Date.now() / 1000) + (60 * 60 * 30) // 30 hours
+    // Round expiration up to nearest 7 day interval
+    exp = Math.ceil(exp/7/86400)*7*86400;
+
     // Create the payload object
     // TODO: The sub should be the host for which we are creating this token for
     payload = {
         scope:  "my_rabbit_server.write:osg-nma/osg.ps-push.raw/perfsonar.raw.*",
-        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 30),
+        exp: exp,
         aud: "my_rabbit_server",
         sub: host,
         client_id: host
     };
-    return jwt.sign(payload, privateKey, { algorithm: 'RS256', keyid: 'pf-key' });
+    return jwt.sign(payload, privateKey, { algorithm: 'RS256', keyid: 'pf-key', noTimestamp: true });
 
 }
 
