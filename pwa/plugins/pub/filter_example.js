@@ -14,7 +14,7 @@ function generateJWT(host) {
     // TODO: The sub should be the host for which we are creating this token for
     payload = {
         scope:  "my_rabbit_server.write:osg-nma/osg.ps-push.raw/perfsonar.raw.*",
-        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 8),
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 30),
         aud: "my_rabbit_server",
         sub: host,
         client_id: host
