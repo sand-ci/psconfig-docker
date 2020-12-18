@@ -24,11 +24,15 @@ function generateJWT(host) {
 }
 
 function getDomain(hostname) {
-    var split_hostname = hostname.split(".");
-    // Join only the last 2 elements
-    // from https://stackoverflow.com/questions/6473858/in-a-javascript-array-how-do-i-get-the-last-5-elements-excluding-the-first-ele
-    var domain = split_hostname.slice(Math.max(split_hostname.length - 2, 0)).join(".");
-    return domain;
+    try {
+        var split_hostname = hostname.split(".");
+        // Join only the last 2 elements
+        // from https://stackoverflow.com/questions/6473858/in-a-javascript-array-how-do-i-get-the-last-5-elements-excluding-the-first-ele
+        var domain = split_hostname.slice(Math.max(split_hostname.length - 2, 0)).join(".");
+        return domain;
+    } catch (err) {
+        return "";
+    }
 }
 
 function reverseDNS(ip, timeout, callback) {
